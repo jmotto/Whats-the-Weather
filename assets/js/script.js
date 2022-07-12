@@ -1,4 +1,10 @@
-var apiKey = "";
+var apiKey = "ccb1e206c1162d91b5c8a0942ad7ff43";
+
+var searchInput = document.querySelector('#search-input');
+
+var todayContainer = document.querySelector('#today');
+var forcastContainer = document.querySelector('#forcast');
+var searchHistoryContainer = document.querySelector('#search-history');
 
 //  Submit the form to fetch weather information
 
@@ -6,14 +12,14 @@ var apiKey = "";
 
     //  Call the `fetchGeolocation` and pass the city name
 
-// Handle button clickls to fetch weather information
+// Handle button clicks to fetch weather information
 
     //  Get the city name from the clicked button's (event.target) data-city data attribute
 
 // Fetch Geolocation Data (Geocoding API)
 function fetchGeolocation (cityName) {
 
-    var request = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=ccb1e206c1162d91b5c8a0942ad7ff43`;
+    var request = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`;
 
     fetch(request) 
         .then(function(response) {
