@@ -1,58 +1,73 @@
 var apiKey = "ccb1e206c1162d91b5c8a0942ad7ff43";
 
-var searchInput = document.querySelector('#search-input');
+var formEl = document.querySelector("#search-form");
+var todayContainer = document.querySelector("#today");
+var forcastContainer = document.querySelector("#forcast");
+var searchHistoryContainer = document.querySelector("#search-history");
+var historyCities= [];
 
-var todayContainer = document.querySelector('#today');
-var forcastContainer = document.querySelector('#forcast');
-var searchHistoryContainer = document.querySelector('#search-history');
+
+// Store search history
+if(localStorage.getItem("history")) {
+    historyCities = JSON.parse(localStorage.getItem("history"))
+}
 
 //  Submit the form to fetch weather information
 
-    // Fetch the city name from the text <input>
+function getCity() {
+  fetch().then(function () {});
+}
 
-    //  Call the `fetchGeolocation` and pass the city name
+formEl.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-// Handle button clicks to fetch weather information
+  var value = document.querySelector('#search-input').value;
+  console.log(value);
+  fetchGeolocation(value)
+});
 
-    //  Get the city name from the clicked button's (event.target) data-city data attribute
+
 
 // Fetch Geolocation Data (Geocoding API)
-function fetchGeolocation (cityName) {
 
-    var request = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`;
+function fetchGeolocation(cityName) {
+  var request = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`;
 
-    fetch(request) 
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
+  fetch(request)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      fetchOneCallWeather(data[0].lat, data[0].lon)
+      console.log(data[0].name)
+      historyCities.push(data[0].name)
+      localStorage.setItem("history", JSON.stringify(historyCities))
+      
+    });
+}
 
-            console.log(data);
+// Fetch Weather Data (Onecall)
 
-            // Access lat and lon from data
+// Access lat and lon from data
+function fetchOneCallWeather(lat, lon) {
+  var request = `http://api.openweathermap.org/data/2.5/onecall?appid=ccb1e206c1162d91b5c8a0942ad7ff43&lat=${lat}&lon=${lon}&units=imperial`;
 
-            // Call fetchOneCallWeather and pass through the lat and lon
-        });
-    }
+     // Call fetchOneCallWeather and pass through the lat and lon
+  fetch(request)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
 
+      // Render/Display the weather data
+      renderCurrentDay(data.current)
+      
+    });
+}
 
-    fetchGeolocation("Santa Rosa");
-    fetchGeolocation("Seattle");
+function renderCurrentDay(currentWeather) {
+    console.log(currentWeather)
+}
 
-    // Fetch Weather Data (Onecall)
-    function fetchOneCallWeather(lat, lon) {
-        var request = `https://api.openweathermap.org/data/2.5/onecall?appid=ccb1e206c1162d91b5c8a0942ad7ff43&${lat}&${lon}&units=imperial&exclude=minutely,hourly`
-
-        fetch(request) 
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data);
-
-            // Render/Display the weather data 
-        });
-
-    }
-
-    fetchOneCallWeather();
