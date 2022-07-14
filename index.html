@@ -15,14 +15,17 @@
     <title>Weather</title>
   </head>
   <body>
-    <header class="container-fluid text-center bg-dark text-white p-2">
+    <header class="container-fluid text-center bg-dark text-white">
       <h1>Weather Dashboard</h1>
     </header>
 
+    <!-- Main Container -->
     <div class="container">
       <div class="row">
+
+        <!-- Search for city -->
         <aside class="col-4 bg-light">
-          <form id="search-form" class="form">
+          <form id="search-form" class="form border-bottom border-dark">
             <label for="search-city">Search for a City:</label>
             <div class="input-container">
               <input
@@ -34,7 +37,7 @@
                 aria-controls="today forecast"
               />
 
-              <div class="input-group-append">
+              <div class="input-btn">
                 <button
                   class="btn search-button btn-primary"
                   type="submit"
@@ -46,24 +49,45 @@
               </div>
             </div>
           </form>
-
-          <div class="search-history" id="search-history"></div>
+          <!-- Search history list -->
+          <div class="search-history"
+               id="search-history">This is where the search history will go
+          </div>
         </aside>
 
-        <div class="col">
-          <section
-            class="mt-3"
-            id="today"
-            role="region"
-            aria-live="polite"
-          ></section>
+        <!-- Weather section-->
+        <div id="weather" class="col bg-light border border-dark mt-3">
+          <!-- Today's weather -->
+          <section id=today class="col mt-2">
+            <div class="card card-city">
+              <p class="date-today"></p>
+              <p class="city-today"></p>
+              <p class="temp-today"></p>
+              <p class="wind-today"></p>
+              <p class="humidity-today"></p>
+              <p class="uv-index-today"></p>
+            </div>
+          </section>
 
-          <section
-            class="row mt-3"
-            id="forecast"
-            role="region"
-            aria-live="polite"
-          ></section>
+          <!-- 5-day forecast -->
+          <div id="forcast" class="row mt-2">
+            <div class="forcast-title p-2">
+                  <h5>5-Day Forecast:</h5>
+            </div>
+          </div>
+            <!-- day1 -->
+            <div class="card-forcast col">
+              <div class="card bg-primary text-white">
+                <div class="card-content p-2">
+                  <h5 class="card-title"></h5>
+                    <!-- <p id="date-forcast" class="card-text"></p> -->
+                    <p id="icon-forecast" class="card-text"></p>
+                    <p id="temp-forcast" class="card-text"></p>
+                    <p id="wind-forcast" class="card-text"></p>
+                    <p id="humidity-forcast" class="card-text"></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

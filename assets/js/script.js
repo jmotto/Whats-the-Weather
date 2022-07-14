@@ -12,8 +12,24 @@ if(localStorage.getItem("history")) {
     historyCities = JSON.parse(localStorage.getItem("history"))
 }
 
-//  Submit the form to fetch weather information
+// display search history
+function displayHistory() {
+  searchHistoryContainer.innerHTML = "";
 
+  for (var i = historyCities.length -1; i >=0; i--){
+    var btn = document.createElement('button');
+    btn.setAttribute('type', 'button');
+    btn.setAttribute('arial-controls', 'today forcast');
+    btn.classList.add('history-btn', 'btn-history');
+
+    btn.setAttribute('data-search', historyCities[i]);
+    btn.textContent = historyCities[i];
+    searchHistoryContainer.append(btn);
+  }
+
+}
+
+//  Submit the form to fetch weather information
 function getCity() {
   fetch().then(function () {});
 }
@@ -26,6 +42,7 @@ formEl.addEventListener("submit", function (e) {
   fetchGeolocation(value)
 });
 
+// function to display current weather
 
 
 // Fetch Geolocation Data (Geocoding API)
